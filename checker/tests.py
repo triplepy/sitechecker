@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import User, Site
 
+
 class DBTest(TestCase):
 
     def test_user_model_save_and_get_data(self):
