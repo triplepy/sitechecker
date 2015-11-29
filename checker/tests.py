@@ -23,6 +23,4 @@ class HomePageTest(TestCase):
     def test_get_homepage_response(self):
         response = self.c.get('/')
         self.assertEquals(response.status_code, 200)
-        self.assertIn(response.content('Hello'))
-
-        
+        self.assertIn("Hello", response.content.decode())
