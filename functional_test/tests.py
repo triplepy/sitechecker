@@ -22,13 +22,13 @@ class FirstVisitUser(LiveServerTestCase):
         # Gmail계정과 체크할 URL을 입력하라는 텍스트 박스를 본다.
         nicknamebox = self.browser.find_element_by_id('nickname')
         self.assertEquals(
-            nicknamebox.get_attribute('placeholder')
+            nicknamebox.get_attribute('placeholder'),
             'Gmail Nickname'
         )
 
         urlbox = self.browser.find_element_by_id('siteurl')
         self.assertEquals(
-            urlbox.get_attribute('plackholder')
+            urlbox.get_attribute('plackholder'),
             'Site URL to Check'
         )
         
