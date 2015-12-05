@@ -28,7 +28,7 @@ class HomePageTest(TestCase):
 
 class PostDataTest(TestCase):
     def setUp(self):
-        self.factory = RequsetFactory()
+        self.factory = RequestFactory()
     
     def test_post_data(self):
         request.factory.post('/')
