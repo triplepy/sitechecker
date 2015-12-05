@@ -28,7 +28,7 @@ class FirstVisitUser(LiveServerTestCase):
 
         urlbox = self.browser.find_element_by_id('siteurl')
         self.assertEquals(
-            urlbox.get_attribute('plackholder'),
+            urlbox.get_attribute('placeholder'),
             'Site URL to Check'
         )
         
