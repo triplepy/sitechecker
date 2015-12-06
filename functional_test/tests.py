@@ -1,6 +1,7 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
+
 # 사이트 체커의 유저스토리를 먼저 작성한다.
 class FirstVisitUser(LiveServerTestCase):
     def setUp(self):
@@ -40,7 +41,7 @@ class FirstVisitUser(LiveServerTestCase):
         register_button.click()
         # 메일이 등록되었다는 메시지를 본 뒤
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertIn('Registered!! Check your email!')
+        self.assertIn('Registered!! Check your email!', page_text)
         # 메일이 왔는지 확인해 보러간다.
         self.fail('pass Functional Test')
 

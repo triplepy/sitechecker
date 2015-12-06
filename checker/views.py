@@ -1,10 +1,17 @@
 from django.shortcuts import render
+from .models import User, Site
+from .forms import CheckerForm
+
 
 def home(request):
     if request.method == 'POST':
-       user =  User.create(nickname=request['nickname'])
-       Site.create(user=user, url=request['siteurl'])
-       
-    return render(request,'checker/home.html', '')
+        form = CheckerForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create(nickname=form.get('nickname'))
+            Site.objects.create(user=user, url=form.get('siteurl'))
+        return render(request, 'checker/home.html', '')
+    else:
+        form = CheckerForm()
+        return render(request, 'checker/home.html', {'form': form})
 
 

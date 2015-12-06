@@ -5,6 +5,8 @@
   <body>
     <h1>Hello SiteChecker!!</h1>
     <form action='/' method='post'>
+      {% csrf_token %}
+      {{ form }} 
       <div>
         <input type="text" id="nickname" name="nickname"
                placeholder="Gmail Nickname" />
