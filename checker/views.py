@@ -7,8 +7,8 @@ def home(request):
     if request.method == 'POST':
         form = CheckerForm(request.POST)
         if form.is_valid():
-            user = User.objects.create(nickname=form.get('nickname'))
-            Site.objects.create(user=user, url=form.get('siteurl'))
+            user = User.objects.create(nickname=form['nickname'])
+            Site.objects.create(user=user, url=form['siteurl'])
         return render(request, 'checker/home.html', '')
     else:
         form = CheckerForm()

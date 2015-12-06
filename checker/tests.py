@@ -34,7 +34,8 @@ class PostDataTest(TestCase):
         self.factory = RequestFactory()
     
     def test_post_data(self):
-        request = self.factory.post('/')
+        request = self.factory.post(
+            '/', {'nickname': 'test_post_data', 'siteurl': 'jellyms.kr'})
         request.user = AnonymousUser()
         
         response = home(request)
