@@ -32,18 +32,46 @@ class HomePageTest(TestCase):
 class PostDataTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+
     
     def test_post_data(self):
+        nickname = 'test_post_data'
+        url = 'jellyms.kr'
         request = self.factory.post(
-            '/', {'nickname': 'test_post_data', 'siteurl': 'jellyms.kr'})
+            '/', {'nickname': nickname, 'siteurl': url})
+
+        request.user = AnonymousUser()
+        
+        response = home(request)
+
+        self.assertEquals(200, response.status_code)
+
+        try:
+            user = User.objects.get(nickname=nickname)
+        except User.DoesNotExist:
+            self.assertFail()
+
+        self.assertTrue(user)
+        site = Site.objects.get(url=url)
+        self.assertTrue(site)
+
+    def test_post_data_twice(self):
+        nickname = 'twicenick'
+        siteurl = 'twicesite.jelly'
+        
+        request = self.factory.post(
+            '/', {'nickname': nickname, 'siteurl': siteurl})
 
         request.user = AnonymousUser()
 
-        
         response = home(request)
         self.assertEquals(200, response.status_code)
-        
-        all_users = User.objects.all()
-        self.assertTrue(all_users)
 
+        response = home(request)
+        self.assertEquals(200, response.status_code)
 
+        user = User.objects.filter(nickname=nickname)
+        self.assertEquals(1,len(user))
+
+        site = Site.objects.filter(url=siteurl)
+        self.assertEquals(1,len(site))

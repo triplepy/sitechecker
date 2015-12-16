@@ -2,7 +2,7 @@ from django.db import models
 
 
 class User(models.Model):
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, unique=True)
 
 
 class Site(models.Model):
