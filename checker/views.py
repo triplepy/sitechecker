@@ -10,7 +10,9 @@ def home(request):
             user = User.objects.create(nickname=form['nickname'])
             Site.objects.create(user=user, url=form['siteurl'])
         return render(request, 'checker/home.html', '')
+    
     else:
+
         form = CheckerForm()
         return render(request, 'checker/home.html', {'form': form})
 

@@ -36,10 +36,14 @@ class PostDataTest(TestCase):
     def test_post_data(self):
         request = self.factory.post(
             '/', {'nickname': 'test_post_data', 'siteurl': 'jellyms.kr'})
+
         request.user = AnonymousUser()
+
         
         response = home(request)
         self.assertEquals(200, response.status_code)
         
         all_users = User.objects.all()
         self.assertTrue(all_users)
+
+
