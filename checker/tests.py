@@ -32,7 +32,6 @@ class HomePageTest(TestCase):
 class PostDataTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-
     
     def test_post_data(self):
         nickname = 'test_post_data'
@@ -71,7 +70,7 @@ class PostDataTest(TestCase):
         self.assertEquals(200, response.status_code)
 
         user = User.objects.filter(nickname=nickname)
-        self.assertEquals(1,len(user))
+        self.assertEquals(1, len(user))
 
         site = Site.objects.filter(url=siteurl)
-        self.assertEquals(1,len(site))
+        self.assertEquals(1, len(site))

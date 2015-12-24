@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.db.utils import IntegrityError
 
 from .models import User, Site
 from .forms import CheckerForm
@@ -15,11 +14,12 @@ def home(request):
                 user = User.objects.get(nickname=nickname)
             except User.DoesNotExist:
                 user = User.objects.create(nickname=nickname)
-        
-            Site.objects.create(
-                    user=user, url=url)
 
-                
+            try:
+                Site.objects.get(user=user, url=url)
+            except Site.DoesNotExist:
+                Site.objects.create(user=user, url=url)
+            
         return render(request, 'checker/home.html', '')
     
     else:
