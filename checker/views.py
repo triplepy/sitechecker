@@ -18,12 +18,10 @@ def home(request):
             try:
                 Site.objects.get(user=user, url=url)
             except Site.DoesNotExist:
-                Site.objects.create(user=user, url=url)
-            
+                site = Site.objects.create(user=user, url=url)
+                site.send_register_mail()
         return render(request, 'checker/home.html', '')
-    
+
     else:
         form = CheckerForm()
         return render(request, 'checker/home.html', {'form': form})
-
-

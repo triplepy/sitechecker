@@ -8,3 +8,7 @@ class User(models.Model):
 class Site(models.Model):
     user = models.ForeignKey("User")
     url = models.CharField(max_length=300)
+
+    def send_register_mail(self):
+        # TODO 구현 필요
+        pass
