@@ -16,5 +16,9 @@ def check():
             send_status_mail(msg) # Todo it needs implement
 
 
+def send_status_mail(self):
+    # TODO 구현 필요
+    pass
+
 while True:
     schedule.every(5).minutes.do(check)
