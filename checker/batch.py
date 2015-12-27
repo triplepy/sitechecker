@@ -1,6 +1,10 @@
-from models import Site
+import smtplib
 import schedule
+
+from models import Site
+
 from pingdumb.main_module import get_status, get_strftime
+from pingdumb.smtp_module import form_msg, send_email
 
 
 def check():
@@ -9,16 +13,29 @@ def check():
         status = get_status(site.url)
         st = get_strftime()
         if status >= 400:
-            msg = form_msgs(st +
-                            "\n" + site.url +
-                            " Http status is " +
-                            status, site.user.nickanme + "@gmail.com")
-            send_status_mail(msg) # Todo it needs implement
+            msg = form_msg(st +
+                           "\n" + site.url +
+                           " Http status is " + status,
+                           site.user.nickanme + "@gmail.com")
+            send_status_mail(msg)
 
 
-def send_status_mail(self):
-    # TODO 구현 필요
-    pass
+def load_smtp_conf():
+    s = smtplib.SMTP("smtp.gmail.com:587")
+    s.starttls()
+    username = ""
+    password = ""
+    s.login(username, password)
+    return s
 
+
+def send_status_mail(msg):
+    s = load_smtp_conf()
+    send_email(s, msg)
+    s.quit()
+
+
+s = load_smtp_conf()
+s.quit()
 while True:
     schedule.every(5).minutes.do(check)
