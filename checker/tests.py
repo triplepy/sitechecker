@@ -4,6 +4,7 @@ from django.test.client import RequestFactory
 from .models import User, Site
 from .views import home
 
+import uuid
 
 class DBTest(TestCase):
 
@@ -27,6 +28,23 @@ class HomePageTest(TestCase):
         response = self.c.get('/')
         self.assertEquals(response.status_code, 200)
         self.assertIn("Hello", response.content.decode())
+
+
+class CertifyTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(nickname="jellymsblog")
+        self.not_verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
+        self.verified_site = Site.objects.create(user=self.user, url="injellyms.kr")
+
+    def test_verify_success(self):
+        site_uuid = self.verified_site.uuid_to_ceitify
+        result = self.verified_site.verify(site_uuid)
+        self.assertTrue(result)
+
+    def test_verify_fail(self):
+        site_uuid = str(uuid.uuid4())
+        result = self.not_verified_site.verify(site_uuid)
+        self.assertFalse(result)
 
 
 class PostDataTest(TestCase):
