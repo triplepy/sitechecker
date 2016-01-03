@@ -33,18 +33,18 @@ class HomePageTest(TestCase):
 class CertifyTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(nickname="jellymsblog")
-        self.not_verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
-        self.verified_site = Site.objects.create(user=self.user, url="injellyms.kr")
+        self.verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
+        self.not_verified_site = Site.objects.create(user=self.user, url="injellyms.kr")
 
     def test_verify_success(self):
         site_uuid = self.verified_site.uuid_to_ceitify
-        result = self.verified_site.verify(site_uuid)
-        self.assertTrue(result)
+        self.verified_site.verify(site_uuid)
+        self.assertTrue(self.verified_site.is_verified)
 
     def test_verify_fail(self):
         site_uuid = str(uuid.uuid4())
         result = self.not_verified_site.verify(site_uuid)
-        self.assertFalse(result)
+        self.assertFalse(self.verified_site.is_verified)
 
 
 class PostDataTest(TestCase):
