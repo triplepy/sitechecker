@@ -15,8 +15,8 @@ class Site(models.Model):
     def send_register_mail(self):
         s = load_smtp_conf()
         verify_link = "http://sitechec.kr/site/" + self.user.nickname \
-               "/verify/" + self.uuid_to_verify
-        msg = form_msg("sitechecker 등록을 원하신다면 <a href=\""\
+          + "/verify/" + self.uuid_to_verify
+        msg = form_msg("sitechecker 등록을 원하신다면 <a href=\"" 
                        + verify_link +"\">" + verify_link + "\"</a>로 이동해주세요")
         send_email(s, msg)
         
