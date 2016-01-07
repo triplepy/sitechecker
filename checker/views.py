@@ -25,3 +25,14 @@ def home(request):
     else:
         form = CheckerForm()
         return render(request, 'checker/home.html', {'form': form})
+
+def verify(request, nickname, url, uuid):
+    user = User.objects.get(nickname=nickname)
+    site = Site.obects.get(url=url,user=user)
+    if site.verify(uuid):
+        # TODO implement in success case
+        pass
+    else:
+        # TODO implement in fail case
+        pass
+    
