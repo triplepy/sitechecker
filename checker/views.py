@@ -30,9 +30,9 @@ def verify(request, nickname, url, uuid):
     user = User.objects.get(nickname=nickname)
     site = Site.obects.get(url=url,user=user)
     if site.verify(uuid):
-        return render(request, 'checker/home.html', {message : "success" })
+        return render(request, 'checker/verify.html', {message : "success" })
 
     else:
-        return render(request, 'checker/home.html', {message: "failure"
+        return render(request, 'checker/verify.html', {message: "failure"
  
     
