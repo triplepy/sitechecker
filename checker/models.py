@@ -32,3 +32,9 @@ class Site(models.Model):
     def verify(self, uuid):
         self.is_verified = uuid == self.uuid_to_ceitify
         return self.is_verified
+
+    # ??????
+    @classsmethod()
+    def save(cls):
+        # TODO implement create uuid at save
+        pass 
