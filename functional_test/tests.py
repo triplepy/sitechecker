@@ -56,7 +56,7 @@ class VerifyTest(LiveServerTestCase):
         self.user = User.objects.create(nickname=nickname)
         self.site = Site.objects.create(user=user,
                                         url=url,
-                                        uuid_to_verify=uuid.uuid4()
+                                        uuid_to_verify=uuid.uuid4(),
                                         is_verified=False)
 
 
