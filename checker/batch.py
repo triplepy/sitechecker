@@ -1,7 +1,7 @@
 import smtplib
 import schedule
 
-from models import Site
+from .models import Site
 
 from pingdumb.main_module import get_status, get_strftime
 from pingdumb.smtp_module import form_msg, send_email
