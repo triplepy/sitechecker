@@ -19,6 +19,16 @@
         <input type="submit" text="Register" id="register"/>
       </div>
     </form>
+
+    {% if site %}
+        <div>
+          <p>Registered!! Check your email!</p>
+          <ul>
+            <li>{{ site.url }}</li>
+            <li>{{ site.user }}</li>
+          </ul>
+        </div>
+    {% endif %}
     {% endblock %}
   </body>
 </html>

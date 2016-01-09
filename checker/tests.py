@@ -37,7 +37,7 @@ class VerifyTest(TestCase):
         self.not_verified_site = Site.objects.create(user=self.user, url="injellyms.kr")
 
     def test_verify_success(self):
-        site_uuid = self.verified_site.uuid_to_ceitify
+        site_uuid = self.verified_site.uuid_to_verify
         self.verified_site.verify(site_uuid)
         self.assertTrue(self.verified_site.is_verified)
 
