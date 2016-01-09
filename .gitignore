@@ -111,3 +111,6 @@ db.sqlite3
 
 # Python Virtual environment
 venv/
+
+# Django migration files
+*/migrations/*.py
