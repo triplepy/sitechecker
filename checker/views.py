@@ -16,23 +16,22 @@ def home(request):
                 user = User.objects.create(nickname=nickname)
 
             try:
-                Site.objects.get(user=user, url=url)
+                site = Site.objects.get(user=user, url=url)
             except Site.DoesNotExist:
                 site = Site.objects.create(user=user, url=url)
                 site.send_register_mail()
-        return render(request, 'checker/home.html', '')
+        return render(request, 'checker/home.html', {'site': site})
 
     else:
         form = CheckerForm()
         return render(request, 'checker/home.html', {'form': form})
 
+
 def verify(request, nickname, url, uuid):
     user = User.objects.get(nickname=nickname)
-    site = Site.obects.get(url=url,user=user)
+    site = Site.obects.get(url=url, user=user)
     if site.verify(uuid):
-        return render(request, 'checker/verify.html', {message : "success" })
+        return render(request, 'checker/verify.html', {"message": "success"})
 
     else:
-        return render(request, 'checker/verify.html', {message: "failure"
- 
-    
+        return render(request, 'checker/verify.html', {"message": "failure"})
