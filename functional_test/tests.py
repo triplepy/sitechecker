@@ -13,7 +13,6 @@ class FirstVisitUser(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-
     def test_visit_and_register_mail_and_site_url(self):
         # 젤리는 커뮤니티에서 간편하게 웹서버 상태를 모니터링 해주는
         # 웹사이트가 있다고 해서 접속해본다.
@@ -25,16 +24,16 @@ class FirstVisitUser(LiveServerTestCase):
         # Gmail계정과 체크할 URL을 입력하라는 텍스트 박스를 본다.
         nicknamebox = self.browser.find_element_by_id('nickname')
         self.assertEquals(
-            nicknamebox.get_attribute('placeholder'),
-            'Gmail Nickname'
+                nicknamebox.get_attribute('placeholder'),
+                'Gmail Nickname'
         )
 
         urlbox = self.browser.find_element_by_id('siteurl')
         self.assertEquals(
-            urlbox.get_attribute('placeholder'),
-            'Site URL to Check'
+                urlbox.get_attribute('placeholder'),
+                'Site URL to Check'
         )
-        
+
         # 자신의 사이트 모니터링을 위해 구글 아이디를 적고,
         # 체크할 사이트의 URL도 같이 입력한 뒤 추가 버튼을 누른다.
         nicknamebox.send_keys('somesitecheckeruser')
@@ -47,6 +46,7 @@ class FirstVisitUser(LiveServerTestCase):
         # 메일이 왔는지 확인해 보러간다.
         self.fail('pass Functional Test')
 
+
 class VerifyTest(LiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -58,6 +58,3 @@ class VerifyTest(LiveServerTestCase):
                                         url=url,
                                         uuid_to_verify=uuid.uuid4(),
                                         is_verified=False)
-
-
-    

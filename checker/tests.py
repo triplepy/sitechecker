@@ -6,8 +6,8 @@ from .views import home
 
 import uuid
 
-class DBTest(TestCase):
 
+class DBTest(TestCase):
     def test_user_model_save_and_get_data(self):
         User.objects.create(nickname="nickname")
         all_users = User.objects.all()
@@ -50,15 +50,15 @@ class VerifyTest(TestCase):
 class PostDataTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-    
+
     def test_post_data(self):
         nickname = 'test_post_data'
         url = 'jellyms.kr'
         request = self.factory.post(
-            '/', {'nickname': nickname, 'siteurl': url})
+                '/', {'nickname': nickname, 'siteurl': url})
 
         request.user = AnonymousUser()
-        
+
         response = home(request)
 
         self.assertEquals(200, response.status_code)
@@ -75,9 +75,9 @@ class PostDataTest(TestCase):
     def test_post_data_twice(self):
         nickname = 'twicenick'
         siteurl = 'twicesite.jelly'
-        
+
         request = self.factory.post(
-            '/', {'nickname': nickname, 'siteurl': siteurl})
+                '/', {'nickname': nickname, 'siteurl': siteurl})
 
         request.user = AnonymousUser()
 
