@@ -1,4 +1,3 @@
-import checker
 from django.shortcuts import render
 
 from .models import User, Site
