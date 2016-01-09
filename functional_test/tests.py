@@ -1,6 +1,8 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
+from checker.models import User, Site
+import uuid
 
 # 사이트 체커의 유저스토리를 먼저 작성한다.
 class FirstVisitUser(LiveServerTestCase):
@@ -43,3 +45,16 @@ class FirstVisitUser(LiveServerTestCase):
         self.assertIn('Registered!! Check your email!', page_text)
         # 메일이 왔는지 확인해 보러간다.
         self.fail('pass Functional Test')
+
+
+class VerifyTest(LiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        self.browser.immplicitly_wait(3)
+        self.nickname = "verifyTest"
+        url = "urlrulrulrulrulr.com"
+        self.user = User.objects.create(nickname=nickname)
+        self.site = Site.objects.create(user=user,
+                                        url=url,
+                                        uuid_to_verify=uuid.uuid4(),
+                                        is_verified=False)
