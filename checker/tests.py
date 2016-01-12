@@ -92,3 +92,16 @@ class PostDataTest(TestCase):
 
         site = Site.objects.filter(url=siteurl)
         self.assertEquals(1, len(site))
+
+
+class IsSet(TestCase):
+    def setUp(self):
+        self.username = os.environ['SITECHECKER.SMTP.USERNAME']
+        self.password = os.environ['SITECHECKER.SMTP.PASSWORD']
+
+    def test_is_set(self):
+        if not self.username:
+            self.assertFail("please set environment variable username")
+        if not self.password:
+            self.assertFail("please set environment varable password")
+
