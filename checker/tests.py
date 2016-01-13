@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, Client
 from django.test.client import RequestFactory
+import os
 from .models import User, Site
 from .views import home
 
@@ -96,8 +97,14 @@ class PostDataTest(TestCase):
 
 class IsSet(TestCase):
     def setUp(self):
-        self.username = os.environ['SITECHECKER.SMTP.USERNAME']
-        self.password = os.environ['SITECHECKER.SMTP.PASSWORD']
+        try:
+            self.username = os.environ['SITECHECKER.SMTP.USERNAME']
+        except KeyError:
+            self.username = ""
+        try:
+            self.password = os.environ['SITECHECKER.SMTP.PASSWORD']
+        except KeyError:
+            self.password = ""
 
     def test_is_set(self):
         if not self.username:
