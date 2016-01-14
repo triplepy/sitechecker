@@ -98,11 +98,11 @@ class PostDataTest(TestCase):
 class IsSet(TestCase):
     def setUp(self):
         try:
-            self.username = os.environ['SITECHECKER.SMTP.USERNAME']
+            self.username = os.environ['SITECHECKER_SMTP_USERNAME']
         except KeyError:
             self.username = ""
         try:
-            self.password = os.environ['SITECHECKER.SMTP.PASSWORD']
+            self.password = os.environ['SITECHECKER_SMTP_PASSWORD']
         except KeyError:
             self.password = ""
 
