@@ -4,6 +4,7 @@ from selenium import webdriver
 from checker.models import User, Site
 import uuid
 
+
 # 사이트 체커의 유저스토리를 먼저 작성한다.
 class FirstVisitUser(LiveServerTestCase):
     def setUp(self):
@@ -24,14 +25,14 @@ class FirstVisitUser(LiveServerTestCase):
         # Gmail계정과 체크할 URL을 입력하라는 텍스트 박스를 본다.
         nicknamebox = self.browser.find_element_by_id('nickname')
         self.assertEquals(
-                nicknamebox.get_attribute('placeholder'),
-                'Gmail Nickname'
+            nicknamebox.get_attribute('placeholder'),
+            'Gmail Nickname'
         )
 
         urlbox = self.browser.find_element_by_id('siteurl')
         self.assertEquals(
-                urlbox.get_attribute('placeholder'),
-                'Site URL to Check'
+            urlbox.get_attribute('placeholder'),
+            'Site URL to Check'
         )
 
         # 자신의 사이트 모니터링을 위해 구글 아이디를 적고,
@@ -44,7 +45,6 @@ class FirstVisitUser(LiveServerTestCase):
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertIn('Registered!! Check your email!', page_text)
         # 메일이 왔는지 확인해 보러간다.
-        self.fail('pass Functional Test')
 
 
 class VerifyTest(LiveServerTestCase):
@@ -53,8 +53,8 @@ class VerifyTest(LiveServerTestCase):
         self.browser.immplicitly_wait(3)
         self.nickname = "verifyTest"
         url = "urlrulrulrulrulr.com"
-        self.user = User.objects.create(nickname=nickname)
-        self.site = Site.objects.create(user=user,
+        self.user = User.objects.create(nickname=self.nickname)
+        self.site = Site.objects.create(user=self.user,
                                         url=url,
                                         uuid_to_verify=uuid.uuid4(),
                                         is_verified=False)
