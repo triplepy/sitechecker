@@ -2,7 +2,8 @@ from checker.loadconf import load_smtp_conf
 from django.db import models
 import uuid
 
-from pingdumb.smtp_module import form_msg, send_email
+from pingdumb.smtp_module import send_email
+from email.mime.text import MIMEText
 
 
 class User(models.Model):
@@ -19,10 +20,18 @@ class Site(models.Model):
         s = load_smtp_conf()
         verify_link = "http://sitechec.kr/site/" + self.user.nickname \
                       + "/verify/" + self.uuid_to_verify
-        msg = form_msg("sitechecker 등록을 원하신다면 <a href=\""
+        msg = self.form_msg("sitechecker 등록을 원하신다면 <a href=\""
                        + verify_link + "\">" + verify_link + "\"</a>로 이동해주세요", self.user.nickname+"@gmail.com")
         send_email(s, msg)
 
+    def form_msg(self, text, to):
+        our_application = "sitechecker"
+        msg = MIMEText(text, _subtype='html', _charset="utf-8")
+        msg['Subject'] = 'The contents of %s' % text
+        msg['From'] = our_application
+        msg['To'] = to
+        return msg
+        
     def verify(self, uuid):
         self.is_verified = uuid == self.uuid_to_verify
         return self.is_verified
