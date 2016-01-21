@@ -21,13 +21,13 @@ class Site(models.Model):
         verify_link = "http://sitechec.kr/site/" + self.user.nickname \
                       + "/verify/" + self.uuid_to_verify
         msg = self.form_msg("sitechecker 등록을 원하신다면 <a href=\""
-                       + verify_link + "\">" + verify_link + "\"</a>로 이동해주세요", self.user.nickname+"@gmail.com")
+                       + verify_link + "\">" + verify_link + "</a>로 이동해주세요", self.user.nickname+"@gmail.com")
         send_email(s, msg)
 
     def form_msg(self, text, to):
         our_application = "sitechecker"
         msg = MIMEText(text, _subtype='html', _charset="utf-8")
-        msg['Subject'] = 'The contents of %s' % text
+        msg['Subject'] = 'Verify your account'
         msg['From'] = our_application
         msg['To'] = to
         return msg
