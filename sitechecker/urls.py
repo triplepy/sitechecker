@@ -20,4 +20,6 @@ from checker import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^(?P<nickname>\w+)/verify/(?P<url>\w+)/(?P<uuid>\w+)$',
+        views.verify, name='verify'),
 ]
