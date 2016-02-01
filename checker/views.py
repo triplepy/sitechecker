@@ -29,7 +29,7 @@ def home(request):
 
 def verify(request, nickname, url, uuid):
     user = User.objects.get(nickname=nickname)
-    site = Site.obects.get(url=url, user=user)
+    site = Site.objects.get(url=url, user=user)
     if site.verify(uuid):
         return render(request, 'checker/verify.html', {"message": "success"})
 
