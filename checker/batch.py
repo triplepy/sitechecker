@@ -1,15 +1,21 @@
-import schedule
+import sys
+import os
+sys.path.append('..' + os.sep)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sitechecker.settings")
 
-from .models import Site
+import time
+import schedule
 
 from pingdumb.main_module import get_status, get_strftime
 from pingdumb.smtp_module import form_msg, send_email
 
-from .loadconf import load_smtp_conf
+from checker.loadconf import load_smtp_conf
+
+from checker.models import Site
 
 
 def check():
-    sites = Site.odjects.all()
+    sites = Site.objects.all()
     for site in sites:
         status = get_status(site.url)
         st = get_strftime()
@@ -27,8 +33,13 @@ def send_status_mail(msg):
     s.quit()
 
 
+
+
 s = load_smtp_conf()
 s.quit()
+schedule.every(5).minutes.do(check)
+
 
 while True:
-    schedule.every(5).minutes.do(check)
+    schedule.run_pending()
+    time.sleep(1)
