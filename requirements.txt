@@ -1,4 +1,5 @@
 Django>=1.8, <1.9
 pingdumb>=0.1
 schedule>=0.3.2
-selenium
+selenium>=2.51.1
+future>=0.15.2
