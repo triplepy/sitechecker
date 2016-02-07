@@ -17,9 +17,16 @@ from checker.models import Site
 def check():
     sites = Site.objects.all()
     for site in sites:
-        url = Site.url_type(site.url)
-        status = get_status(url)
         st = get_strftime()
+        url = Site.url_type(site.url)
+        try:
+            status = get_status(url)
+        except IOError:
+            msg = form_msg(st +
+                           "\n" + url +
+                           " Http status is " + status,
+                           site.user.nickanme + "@gmail.com")
+            send_status_mail(msg)
         if int(status) >= 400:
             msg = form_msg(st +
                            "\n" + url +
@@ -34,12 +41,11 @@ def send_status_mail(msg):
     s.quit()
 
 
-
-
 s = load_smtp_conf()
 s.quit()
-schedule.every(5).minutes.do(check)
 
+
+schedule.every(5).minutes.do(check)
 
 while True:
     schedule.run_pending()
