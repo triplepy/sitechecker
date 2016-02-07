@@ -17,11 +17,12 @@ from checker.models import Site
 def check():
     sites = Site.objects.all()
     for site in sites:
-        status = get_status(site.url)
+        url = Site.url_type(site.url)
+        status = get_status(url)
         st = get_strftime()
         if status >= 400:
             msg = form_msg(st +
-                           "\n" + site.url +
+                           "\n" + url +
                            " Http status is " + status,
                            site.user.nickanme + "@gmail.com")
             send_status_mail(msg)

@@ -35,3 +35,10 @@ class Site(models.Model):
     def verify(self, uuid):
         self.is_verified = uuid == self.uuid_to_verify
         return self.is_verified
+
+    def url_type(url):
+        if "://" not in url:
+            return "http://" + url
+        else:
+            return url
+

@@ -18,6 +18,7 @@ def home(request):
             try:
                 site = Site.objects.get(user=user, url=url)
             except Site.DoesNotExist:
+                url = Site.url_type(url)
                 site = Site.objects.create(user=user, url=url)
                 site.send_register_mail(request.get_host())
         return render(request, 'checker/home.html', {'site': site})
