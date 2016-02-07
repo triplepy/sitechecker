@@ -20,7 +20,7 @@ def check():
         url = Site.url_type(site.url)
         status = get_status(url)
         st = get_strftime()
-        if status >= 400:
+        if int(status) >= 400:
             msg = form_msg(st +
                            "\n" + url +
                            " Http status is " + status,
