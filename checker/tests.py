@@ -4,7 +4,7 @@ from django.test.client import RequestFactory
 import os
 from .models import User, Site
 from .views import home
-
+from .batch import check
 import uuid
 
 
@@ -112,3 +112,16 @@ class IsSet(TestCase):
         if not self.password:
             self.assertFail("please set environment varable password")
 
+
+class BatchTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(nickname="jellymsblog")
+        self.verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
+
+    def test_check(self):
+        try:
+            check()
+        except Exception:
+            self.assertFail()
+            return
+        self.assertSuccess()
