@@ -121,7 +121,7 @@ class BatchTest(TestCase):
     def test_check(self):
         try:
             check()
-        except Exception:
+        except IOError:
             self.assertFail()
             return
         self.assertSuccess()
