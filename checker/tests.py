@@ -2,9 +2,9 @@ from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, Client
 from django.test.client import RequestFactory
 import os
-from .models import User, Site
-from .views import home
-from .batch import check
+from checker.models import User, Site
+from checker.views import home
+from checker.batch import check
 import uuid
 
 
@@ -34,8 +34,10 @@ class HomePageTest(TestCase):
 class VerifyTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(nickname="jellymsblog")
-        self.verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
-        self.not_verified_site = Site.objects.create(user=self.user, url="injellyms.kr")
+        self.verified_site = Site.objects.create(
+            user=self.user, url="jellyms.kr")
+        self.not_verified_site = Site.objects.create(
+            user=self.user, url="injellyms.kr")
 
     def test_verify_success(self):
         site_uuid = self.verified_site.uuid_to_verify
@@ -46,6 +48,7 @@ class VerifyTest(TestCase):
         site_uuid = str(uuid.uuid4())
         result = self.not_verified_site.verify(site_uuid)
         self.assertFalse(self.verified_site.is_verified)
+        self.assertFalse(result)
 
 
 class PostDataTest(TestCase):
@@ -55,8 +58,8 @@ class PostDataTest(TestCase):
     def test_post_data(self):
         nickname = 'test_post_data'
         url = 'jellyms.kr'
-        request = self.factory.post(
-                '/', {'nickname': nickname, 'siteurl': url})
+        request = self.factory.post('/',
+                                    {'nickname': nickname, 'siteurl': url})
 
         request.user = AnonymousUser()
 
@@ -70,15 +73,16 @@ class PostDataTest(TestCase):
             self.assertFail()
 
         self.assertTrue(user)
-        site = Site.objects.get(url=url)
+
+        site = Site.objects.filter(user=user, url=url)
         self.assertTrue(site)
 
     def test_post_data_twice(self):
         nickname = 'twicenick'
         siteurl = 'twicesite.jelly'
 
-        request = self.factory.post(
-                '/', {'nickname': nickname, 'siteurl': siteurl})
+        request = self.factory.post('/',
+                                    {'nickname': nickname, 'siteurl': siteurl})
 
         request.user = AnonymousUser()
 
@@ -116,7 +120,8 @@ class IsSet(TestCase):
 class BatchTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(nickname="jellymsblog")
-        self.verified_site = Site.objects.create(user=self.user, url="jellyms.kr")
+        self.verified_site = Site.objects.create(
+            user=self.user, url="jellyms.kr")
 
     def test_check(self):
         try:
@@ -124,4 +129,4 @@ class BatchTest(TestCase):
         except IOError:
             self.assertFail()
             return
-        self.assertSuccess()
+        self.assertTrue(True)
