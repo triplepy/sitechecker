@@ -10,19 +10,11 @@ def home(request):
         if form.is_valid():
             nickname = form.cleaned_data['nickname']
             url = form.cleaned_data['siteurl']
-            try:
-                user = User.objects.get(nickname=nickname)
-            except User.DoesNotExist:
-                user = User.objects.create(nickname=nickname)
-
-            try:
-                site = Site.objects.get(user=user, url=url)
-            except Site.DoesNotExist:
-                url = Site.url_type(url)
-                site = Site.objects.create(user=user, url=url)
-                site.send_register_mail(request.get_host())
+            user = User.objects.get_or_create(nickname=nickname)
+            url = Site.url_type(url)
+            site = Site.objects.get_or_create(user=user, url=url)
+            site.send_register_mail(request.get_host())
         return render(request, 'checker/home.html', {'site': site})
-
     else:
         form = CheckerForm()
         return render(request, 'checker/home.html', {'form': form})
