@@ -7,8 +7,7 @@ import time
 import schedule
 
 from pingdumb.main_module import get_status, get_strftime
-from pingdumb.smtp_module import form_msg, send_email
-
+from pingdumb.smtp_module import send_email
 from checker.loadconf import load_smtp_conf
 from checker.models import Site
 
@@ -20,7 +19,7 @@ def check():
         url = Site.url_type(site.url)
         status = get_status(url)
         if status == "IOError: can't connect":
-            msg = form_msg(st +
+            msg = site.form_msg(st +
                            "\n" + url +
                            " Http status is " + status,
                            site.user.nickname + "@gmail.com")
@@ -28,7 +27,7 @@ def check():
             continue
 
         if int(status) >= 400:
-            msg = form_msg(st +
+            msg = site.form_msg(st +
                            "\n" + url +
                            " Http status is " + status,
                            site.user.nickname + "@gmail.com")
