@@ -31,7 +31,15 @@ class Site(models.Model):
         msg['From'] = our_application
         msg['To'] = to
         return msg
-        
+
+    def form_msg_status(self, text, to):
+        our_application = "sitechecker"
+        msg = MIMEText(text, _subtype='html', _charset="utf-8")
+        msg['Subject'] = 'Check your site\'s status'
+        msg['From'] = our_application
+        msg['To'] = to
+        return msg
+
     def verify(self, uuid):
         self.is_verified = uuid == self.uuid_to_verify
         return self.is_verified

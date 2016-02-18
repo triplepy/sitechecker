@@ -19,7 +19,7 @@ def check():
         url = Site.url_type(site.url)
         status = get_status(url)
         if status == "IOError: can't connect":
-            msg = site.form_msg(st +
+            msg = site.form_msg_status(st +
                            "\n" + url +
                            " Http status is " + status,
                            site.user.nickname + "@gmail.com")
@@ -27,7 +27,7 @@ def check():
             continue
 
         if int(status) >= 400:
-            msg = site.form_msg(st +
+            msg = site.form_msg_status(st +
                            "\n" + url +
                            " Http status is " + status,
                            site.user.nickname + "@gmail.com")
