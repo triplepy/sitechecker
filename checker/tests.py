@@ -99,6 +99,27 @@ class PostDataTest(TestCase):
         self.assertEquals(1, len(site))
 
 
+class DeleteSiteTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.nickname = "to_delete"
+        self.user = User.objects.create(nickname=nickname)
+        self.url = "to_delete_url"
+        self.site = Site.objects.create(user=self.user, url=self.url)
+
+    def test_delete_site(self):
+        request = self.factory.post('/delete',
+                                    {'nickname': self.nickname,
+                                     'siteurl': self.url})
+        request.user = AnonymousUser()
+
+        response = delete(request)
+        self.assertEquals(200, response.status_code)
+
+        deleted_site = Site.object.filter(url=self.site.url)
+        self.assertFalse(deleted_site)
+
+
 class IsSet(TestCase):
     def setUp(self):
         try:
