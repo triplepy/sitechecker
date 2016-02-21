@@ -13,10 +13,9 @@ def home(request):
             user, user_is_created \
                 = User.objects.get_or_create(nickname=nickname)
 
-            url = Site.url_type(url)
-            
+            define_url = Site.url_type(url)
             site, site_is_created \
-                = Site.objects.get_or_create(user=user, url=url)
+                = Site.objects.get_or_create(user=user, url=define_url)
             site.send_register_mail(request.get_host())
         return render(request, 'checker/home.html', {'site': site})
     else:
