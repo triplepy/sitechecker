@@ -20,17 +20,17 @@ def check():
         status = get_status(url)
         if status == "IOError: can't connect":
             msg = site.form_msg_status(st +
-                           "\n" + url +
-                           " Http status is " + status,
-                           site.user.nickname + "@gmail.com")
+                                       "\n" + url +
+                                       " Http status is " + status,
+                                       site.user.nickname + "@gmail.com")
             send_status_mail(msg)
             continue
 
         if int(status) >= 400:
             msg = site.form_msg_status(st +
-                           "\n" + url +
-                           " Http status is " + status,
-                           site.user.nickname + "@gmail.com")
+                                       "\n" + url +
+                                       " Http status is " + status,
+                                       site.user.nickname + "@gmail.com")
             send_status_mail(msg)
 
 
@@ -39,7 +39,7 @@ def send_status_mail(msg):
     send_email(s, msg)
     s.quit()
 
-    
+
 if __name__ == "__main__":
     s = load_smtp_conf()
     s.quit()
