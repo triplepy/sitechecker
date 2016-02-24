@@ -116,7 +116,7 @@ class DeleteSiteTest(TestCase):
         response = delete(request)
         self.assertEquals(200, response.status_code)
 
-        deleted_site = Site.object.filter(url=self.site.url)
+        deleted_site = Site.objects.filter(url=self.site.url)
         self.assertFalse(deleted_site)
 
 

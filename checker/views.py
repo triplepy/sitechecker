@@ -31,3 +31,15 @@ def verify(request, nickname, url, uuid):
 
     else:
         return render(request, 'checker/verify.html', {"message": "failure"})
+
+
+def delete(request):
+    if request.method == 'POST':
+        form = CheckerForm(request.POST)
+        if form.is_valid():
+            nickname = form.cleaned_data['nickname']
+            url = form.cleaned_data['siteurl']
+            user = User.objects.get(nickname=nickname)
+            site = Site.objects.get(url=url, user=user)
+            site.delete()
+        return render(request, 'checker/home.html')
