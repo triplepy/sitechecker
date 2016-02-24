@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.test.client import RequestFactory
 import os
 from checker.models import User, Site
-from checker.views import home
+from checker.views import home, delete
 from checker.batch import check
 import uuid
 
@@ -103,7 +103,7 @@ class DeleteSiteTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.nickname = "to_delete"
-        self.user = User.objects.create(nickname=nickname)
+        self.user = User.objects.create(nickname=self.nickname)
         self.url = "to_delete_url"
         self.site = Site.objects.create(user=self.user, url=self.url)
 
