@@ -1,15 +1,16 @@
 import sys
 import os
+
 sys.path.append('..' + os.sep)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sitechecker.settings")
-
-import time
-import schedule
 
 from pingdumb.main_module import get_status, get_strftime
 from pingdumb.smtp_module import send_email
 from checker.loadconf import load_smtp_conf
 from checker.models import Site
+
+import time
+import schedule
 
 
 def check():

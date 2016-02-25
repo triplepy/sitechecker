@@ -1,11 +1,12 @@
+import os
+import uuid
+
+
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, Client
 from django.test.client import RequestFactory
-import os
 from checker.models import User, Site
 from checker.views import home, delete
-from checker.batch import check
-import uuid
 
 
 class DBTest(TestCase):
@@ -138,16 +139,4 @@ class IsSet(TestCase):
             self.assertFail("please set environment varable password")
 
 
-class BatchTest(TestCase):
-    def setUp(self):
-        self.user = User.objects.create(nickname="jellymsblog")
-        self.verified_site = Site.objects.create(
-            user=self.user, url="jellyms.kr")
 
-    def test_check(self):
-        try:
-            check()
-        except IOError:
-            self.assertFail()
-            return
-        self.assertTrue(True)
