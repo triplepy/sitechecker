@@ -5,8 +5,8 @@ import uuid
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase, Client
 from django.test.client import RequestFactory
-from checker.models import User, Site
-from checker.views import home, delete
+from .models import User, Site
+from .views import home, delete
 
 
 class DBTest(TestCase):

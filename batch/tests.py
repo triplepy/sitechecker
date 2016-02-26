@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 
-from batch.batch import check
+from .batch import check
 from checker.models import User, Site
 
 
