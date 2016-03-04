@@ -1,4 +1,4 @@
-from checker.loadconf import load_smtp_conf
+from .loadconf import load_smtp_conf
 from django.db import models
 import uuid
 
