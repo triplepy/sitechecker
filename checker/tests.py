@@ -65,25 +65,29 @@ class PostDataTest(TestCase):
         request.user = AnonymousUser()
 
         response = home(request)
-
-        self.assertEquals(200, response.status_code)
+        self.assertEqual(200, response.status_code)
 
         try:
             user = User.objects.get(nickname=nickname)
         except User.DoesNotExist:
-            self.assertFail()
+            self.assertTrue(False, "User does not exist")
 
         self.assertTrue(user)
 
-        site = Site.objects.filter(user=user, url=url)
+        try:
+            define_url = Site.url_type(url)
+            site = Site.objects.get(user=user, url=define_url)
+        except Site.DoesNotExist:
+            self.assertTrue(False, "Site does not exist")
+
         self.assertTrue(site)
 
     def test_post_data_twice(self):
         nickname = 'twicenick'
-        siteurl = 'twicesite.jelly'
+        request_url = 'twicesite.jelly'
 
         request = self.factory.post('/',
-                                    {'nickname': nickname, 'siteurl': siteurl})
+                                    {'nickname': nickname, 'siteurl': request_url})
 
         request.user = AnonymousUser()
 
@@ -96,7 +100,8 @@ class PostDataTest(TestCase):
         user = User.objects.filter(nickname=nickname)
         self.assertEquals(1, len(user))
 
-        site = Site.objects.filter(url=siteurl)
+        define_url = Site.url_type(request_url)
+        site = Site.objects.filter(url=define_url)
         self.assertEquals(1, len(site))
 
 
