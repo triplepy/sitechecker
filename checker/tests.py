@@ -70,17 +70,15 @@ class PostDataTest(TestCase):
         try:
             user = User.objects.get(nickname=nickname)
         except User.DoesNotExist:
-            self.assertTrue(False, "User does not exist")
-
-        self.assertTrue(user)
+            pass
+        self.assertTrue(user, "User Does not exist")
 
         try:
             define_url = Site.url_type(url)
             site = Site.objects.get(user=user, url=define_url)
         except Site.DoesNotExist:
-            self.assertTrue(False, "Site does not exist")
-
-        self.assertTrue(site)
+            pass
+        self.assertTrue(site, "Site does not exist")
 
     def test_post_data_twice(self):
         nickname = 'twicenick'
@@ -141,7 +139,7 @@ class IsSet(TestCase):
         if not self.username:
             self.assertFail("please set environment variable username")
         if not self.password:
-            self.assertFail("please set environment varable password")
+            self.assertFail("please set environment variable password")
 
 
 
