@@ -10,9 +10,6 @@
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
-
-</style>
   </head>
   <body>
     {% block content %}
@@ -22,10 +19,11 @@
           <form class="form-signin" id="login" role="form" action="/" method="post">
           <h3 class="form-signin-heading">sitechecker</h3>
             {% csrf_token %}
-              <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Gmail Nickname" required autofocus/>
-              <input type="text" class="form-control" id="siteurl" name="siteurl" placeholder="Site URL to Check" required/>
+              <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Gmail Nickname" required autofocus />
+              <input type="text" class="form-control" id="siteurl" name="siteurl" placeholder="Site URL to Check" required />
 
               <button class="btn btn-lg btn-primary btn-block" type="submit" id="register" >Register</button>
+              <button class="btn btn-lg btn-danger btn-block" type="button" id="delete">Delete</button>
           {% if site %}
               <div>
                 <p>Registered!! Check your email!</p>
