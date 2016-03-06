@@ -1,3 +1,4 @@
+
 <html>
   <head>
     <title>sitechecker</title>
@@ -9,7 +10,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+      <script src="/static/js/checker/home.js"></script>
   </head>
   <body>
     {% block content %}
@@ -23,7 +24,7 @@
               <input type="text" class="form-control" id="siteurl" name="siteurl" placeholder="Site URL to Check" required />
 
               <button class="btn btn-lg btn-primary btn-block" type="submit" id="register" >Register</button>
-              <button class="btn btn-lg btn-danger btn-block" type="button" id="delete">Delete</button>
+              <button class="btn btn-lg btn-danger btn-block" type="button" id="delete" onclick="delete_site()">Delete</button>
           {% if site %}
               <div>
                 <p>Registered!! Check your email!</p>
