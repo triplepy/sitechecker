@@ -27,10 +27,10 @@ def verify(request, nickname, url, uuid):
     user = User.objects.get(nickname=nickname)
     site = Site.objects.get(url=url, user=user)
     if site.verify(uuid):
-        return render(request, 'checker/verify.html', {"message": "success"})
+        return render(request, 'checker/message.html', {"message": "Verify success"})
 
     else:
-        return render(request, 'checker/verify.html', {"message": "failure"})
+        return render(request, 'checker/message.html', {"message": "Verify failure"})
 
 
 def delete(request):
@@ -39,7 +39,15 @@ def delete(request):
         if form.is_valid():
             nickname = form.cleaned_data['nickname']
             url = form.cleaned_data['siteurl']
-            user = User.objects.get(nickname=nickname)
-            site = Site.objects.get(url=url, user=user)
-            site.delete()
-        return render(request, 'checker/home.html')
+            try:
+                user = User.objects.get(nickname=nickname)
+            except User.DoesNotExist:
+                return render(request, 'checker/message.html', {"message": "Delete failure, User does not exist"})
+
+            try:
+                define_url = Site.url_type(url)
+                site = Site.objects.get(url=define_url, user=user)
+                site.delete()
+            except Site.DoesNotExist:
+                return render(request, 'checker/message.html', {"message": "Delete failure, Site does not exist"})
+            return render(request, 'checker/message.html', {'message': "Delete success"})

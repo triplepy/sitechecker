@@ -19,6 +19,7 @@ from checker import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^delete$', views.delete, name='delete'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^(?P<nickname>.*)/verify/(?P<url>.*)/(?P<uuid>.*)$',
         views.verify, name='verify'),
