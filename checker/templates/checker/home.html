@@ -5,39 +5,57 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/checker/main.css">
+
+    <link rel="stylesheet" href="/static/css/checker/home.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-      <script src="/static/js/checker/home.js"></script>
+    <script src="/static/js/checker/home.js"></script>
+   <style media="screen">
+       .input-group {
+           text-align: center;
+           width: 100%;
+       }
+  </style>
   </head>
-  <body>
-    {% block content %}
-    <div class="container">
-      <div class="row">
-        <div class="container" id="formContainer">
-          <form class="form-signin" id="login" role="form" action="/" method="post">
-          <h3 class="form-signin-heading">sitechecker</h3>
-            {% csrf_token %}
-              <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Gmail Nickname" required autofocus />
-              <input type="text" class="form-control" id="siteurl" name="siteurl" placeholder="Site URL to Check" required />
-
-              <button class="btn btn-lg btn-primary btn-block" type="submit" id="register" >Register</button>
-              <button class="btn btn-lg btn-danger btn-block" type="button" id="delete" onclick="delete_site()">Delete</button>
-          {% if site %}
-              <div>
-                <p>Registered!! Check your email!</p>
-                <ul>
-                  <li>Nickname: {{ site.user.nickname }}</li>
-                  <li>Site: {{ site.url }}</li>
-                </ul>
-              </div>
-          {% endif %}
+<body>
+<div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="inner cover">
+          {% block content %}
+            <h1 class="cover-heading" style="color: #FFFFFF">sitechecker</h1>
+            <p class="lead">
+                <label for="" style="color: #999999">The simple checker for you </label>
+                <div class="row">
+                  <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                    <div class="input-group">
+                     <form id="login" action="/" method="post" class="js-forms-submitform">
+                       <div class="input-group input-group-lg">
+                         <input type="text" class="form-control" style="border-radius: 6px" id="nickname" name="nickname" placeholder="Gmail Nickname" required autofocus />
+                         {% csrf_token %}
+                       </div>
+                       <div class="input-group input-group-lg">
+                           <input type="text" class="form-control" style="border-radius: 6px" id="siteurl" name="siteurl" placeholder="Site URL to Check" required />
+                       </div>
+                       <p class="lead"></p>
+                       <button class="btn btn-lg btn-primary btn-block" type="submit" id="register" >Register</button>
+                       <button class="btn btn-lg btn-danger btn-block" type="button" id="delete" onclick="delete_site()">Delete</button>
+                     {% if site %}
+                      <div>
+                        <p class="lead">Registered!! Check your email!</p>
+                        <ul>
+                          <li>Nickname: {{ site.user.nickname }}</li>
+                          <li>Site: {{ site.url }}</li>
+                        </ul>
+                      </div>
+                     {% endif %}
+                     </form>
+                   </div>
           {% endblock %}
-        </form>
-      </div> <!-- form container -->
-    </div> <!--row -->
-  </div> <!-- container -->
+                 </div>
+               </div>
+       </div>
+</div>
 </body>
 </html>
