@@ -43,12 +43,16 @@
                        <button class="btn btn-lg btn-danger btn-block" type="button" id="delete" onclick="delete_site()">Delete</button>
                      {% if site %}
                       <div>
-                        <p class="lead">Registered!! Check your email!</p>
-                        <ul>
-                          <li>Nickname: {{ site.user.nickname }}</li>
-                          <li>Site: {{ site.url }}</li>
-                        </ul>
+                      <p class="lead"></p>
+                        <p class="lead">Registered!! Check your email!
+                            <li>Nickname: {{ site.user.nickname }}</li>
+                            <li>Site: {{ site.url }}</li>
+                        </p>
+
+                        <p class="lead"></p>
+                        <p class="">Go to <a href="http://mail.google.com" class="btn btn-info" target="_blank">gmail</a></p>
                       </div>
+
                      {% endif %}
                      </form>
                    </div>
