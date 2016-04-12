@@ -9,8 +9,9 @@ install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
 
-before_script
+before_script:
   python manage.py migrate
+  
 script:
   python manage.py test
 
