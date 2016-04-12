@@ -10,7 +10,8 @@ install:
   - pip install -q Django==$DJANGO_VERSION
 
 before_script:
-  python manage.py migrate
+  - python manage.py makemigrations
+  - python manage.py migrate
   
 script:
   python manage.py test
