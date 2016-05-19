@@ -1,3 +1,4 @@
+
 import os
 import uuid
 
@@ -123,23 +124,23 @@ class DeleteSiteTest(TestCase):
         deleted_site = Site.objects.filter(url=self.site.url)
         self.assertFalse(deleted_site)
 
+if not os.getenv('BUILD_ON_TRAVIS', None):
+    class IsSet(TestCase):
+        def setUp(self):
+            try:
+                self.username = os.environ['SITECHECKER_SMTP_USERNAME']
+            except KeyError:
+                self.username = ""
+            try:
+                self.password = os.environ['SITECHECKER_SMTP_PASSWORD']
+            except KeyError:
+                self.password = ""
 
-class IsSet(TestCase):
-    def setUp(self):
-        try:
-            self.username = os.environ['SITECHECKER_SMTP_USERNAME']
-        except KeyError:
-            self.username = ""
-        try:
-            self.password = os.environ['SITECHECKER_SMTP_PASSWORD']
-        except KeyError:
-            self.password = ""
-
-    def test_is_set(self):
-        if not self.username:
-            self.assertFail("please set environment variable username")
-        if not self.password:
-            self.assertFail("please set environment variable password")
+        def test_is_set(self):
+            if not self.username:
+                self.assertFail("please set environment variable username")
+            if not self.password:
+                self.assertFail("please set environment variable password")
 
 
 
